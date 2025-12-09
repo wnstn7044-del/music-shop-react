@@ -1,16 +1,153 @@
-# React + Vite
+# 악기 쇼핑몰 (Music Shop)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+React + Vite 기반으로 만든 악기 쇼핑몰 포트폴리오 프로젝트입니다.  
+기타, 피아노, 드럼, 관악기 등 다양한 악기를 한 곳에서 둘러보고, 장바구니·로그인 흐름까지 경험할 수 있는 데모 서비스입니다.
 
-Currently, two official plugins are available:
+> 배포 주소: **https://music-shop-react.netlify.app**  
+> 깃허브 저장소: **https://github.com/wnstn7044-del/music-shop-react**
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## 1. 프로젝트 개요
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **과제 주제**: 리액트 + 외부 API 포트폴리오 만들기
+- **목표**
+  - 수업 시간에 배운 리액트로 실제 서비스 형태의 쇼핑몰 구현
+  - 외부 API 및 npm 라이브러리 활용 경험 쌓기
+  - Netlify 를 이용한 실제 배포까지 완료
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 2. 주요 기능
+
+### 2-1. 홈 페이지
+
+- 상단 네비게이션
+  - `홈`, `악기 둘러보기`, `장바구니`, `로그인`, `회원가입` 링크 제공
+  - 로그인 시 사용자 이메일, 로그아웃 버튼 표시
+- 메인 인트로 카드
+  - "악기 쇼핑몰" 타이틀과 간단한 소개 문구
+  - `악기 둘러보기` 버튼으로 상품 리스트 페이지로 이동
+- 악기 카테고리 카드
+  - 기타, 일렉기타, 베이스, 피아노, 신디사이저, 드럼, 퍼커션, 관악기, 현악기, 레코딩 장비 등 **10개 카테고리**
+  - 각 카드에 악기 이미지, 카테고리명, 간단한 설명 표시
+- 전체 배경
+  - DJ/믹서 장비 이미지가 페이지 전체 배경으로 깔리고
+  - 중앙에 반투명 흰색 카드(`app-inner`)가 떠 있는 형태로 UI 구성
+
+### 2-2. 악기 둘러보기 (상품 리스트 페이지)
+
+- 악기 상품 카드 목록
+  - 각 악기별 대표 이미지
+  - 이름, 가격, 간단 설명
+- 반응형 레이아웃
+  - 화면 크기에 따라 한 줄에 보이는 카드 개수가 달라짐
+  - 넓은 화면에서는 그리드 형태, 좁은 화면에서는 세로 스택 형태로 정렬
+- 카드 클릭 시 **상품 상세 페이지**로 이동
+
+### 2-3. 상품 상세 페이지
+
+- 선택한 악기의 상세 정보 표시
+  - 이미지, 이름, 가격, 설명
+- `장바구니에 담기` 버튼
+  - 클릭 시 전역 장바구니 상태에 상품 추가
+  - 이미 담긴 상품인 경우 수량만 증가
+
+### 2-4. 장바구니 페이지
+
+- 장바구니에 담긴 상품 목록 표시
+  - 썸네일 이미지, 이름, 개수, 개별 금액, 합계 금액
+- 수량 조절
+  - `+`, `-` 버튼 또는 드롭다운으로 수량 변경(구현 방식에 따라)
+- 총 금액 자동 계산
+- `주문하기` 버튼
+  - 로그인 여부에 따라 로그인 페이지로 이동하거나
+  - 주문 완료 페이지로 이동
+- 주문 완료 시 장바구니 초기화
+
+### 2-5. 인증 (로그인 / 회원가입)
+
+- 간단한 폼 구조의 로그인 / 회원가입 화면
+- 이메일, 비밀번호 입력
+- 로그인 성공 시
+  - 네비게이션에 사용자 이메일 표시
+  - `로그인` / `회원가입` 대신 `로그아웃` 버튼 표시
+- 로그아웃 시
+  - 사용자 상태 및 장바구니 연동 상태 초기화(구현 방식에 따라)
+
+### 2-6. 주문 완료 페이지
+
+- 주문이 정상적으로 처리되었다는 메시지
+- 다시 `홈으로 이동` / `악기 둘러보기` 버튼 제공
+- 장바구니 비우기
+
+---
+
+## 3. 기술 스택
+
+### 프론트엔드
+
+- **React** (함수형 컴포넌트 기반)
+- **Vite** (리액트 개발 환경 및 빌드 도구)
+- **React Router**
+  - `/` : 홈
+  - `/products` : 악기 둘러보기(상품 리스트)
+  - `/products/:id` : 상품 상세
+  - `/cart` : 장바구니
+  - `/login` : 로그인
+  - `/register` : 회원가입
+  - `/order-complete` : 주문 완료
+- **Context API**
+  - `CartContext` : 장바구니 상태 관리
+  - (필요 시) `AuthContext` : 로그인 상태 관리
+
+### 스타일링
+
+- 기본 **CSS** (또는 CSS 모듈)
+- 카드/버튼/배경에 그림자, 라운드, 그라디언트 등을 사용해 쇼핑몰 느낌의 UI 구현
+- 전체 배경 이미지 + 중앙 앱 카드 레이아웃
+
+### 외부 API / 라이브러리
+
+- 테스트용 상품/이미지 API를 활용한 예시 구현
+- `Netlify`를 통한 배포 자동화
+- 그 외 필요한 npm 라이브러리(예: 아이콘, 폰트 등)
+
+---
+
+## 4. 프로젝트 구조 (예시)
+
+> 실제 폴더 구조와 100% 일치하지 않을 수 있지만, 전반적인 구성을 설명하기 위한 예시입니다.
+
+- `src/`
+  - `main.jsx` : 엔트리 포인트
+  - `App.jsx` : 전체 라우팅 및 레이아웃
+  - `pages/`
+    - `HomePage.jsx`
+    - `ProductListPage.jsx`
+    - `ProductDetailPage.jsx`
+    - `CartPage.jsx`
+    - `LoginPage.jsx`
+    - `RegisterPage.jsx`
+    - `OrderCompletePage.jsx`
+  - `contexts/`
+    - `CartContext.jsx`
+    - `AuthContext.jsx` (선택)
+  - `data/`
+    - `products.js` (악기 더미 데이터)
+  - `assets/`
+    - 악기 이미지, 배경 이미지 등
+  - `styles/`
+    - `App.css`
+    - 그 외 공통 스타일 파일
+
+---
+
+## 5. 실행 방법
+
+### 5-1. 개발 서버 실행
+
+```bash
+npm install
+npm run dev
+```
